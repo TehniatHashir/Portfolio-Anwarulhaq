@@ -9,6 +9,8 @@ import {
 } from "lucide-react";
 import { Particles } from "@/components/Particles";
 import { Counter, Reveal } from "@/components/motion-utils";
+import TaskScroller from '../components/sections/Experience';
+import LogoScroller from '../components/sections/LogoScroller';
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -612,38 +614,123 @@ function Education() {
 
 /* ============================== RESEARCH ============================== */
 const PUBS = [
-  { title: "Earnings Quality & Stock Returns Analysis", venue: "International Conference on Issues in Management and Social Sciences",
-    type: "Conference Presentation", date: "Aug 2020",
-    abstract: "Presented research on earnings quality and its impact on stock return performance among publicly listed firms at an international academic conference." },
-  { title: "Impact of Training on SME Performance", venue: "International Review of Basic and Applied Sciences",
-    type: "Published Research", date: "Jun 2020",
-    abstract: "Examined the relationship between structured employee training programs and measurable performance outcomes within SME environments." },
+  { 
+    title: "Most startup ecosystems don't fail because of lack of capital",
+    venue: "GlobalStartupLens · LinkedIn",
+    type: "Article",
+    date: "Apr 8, 2026",
+    abstract: "Capital amplifies what already exists. If the underlying system is fragmented, capital accelerates inefficiency. If the system is aligned, capital compounds value. A structural view across Asia, MENA, Europe, and North America reveals that ecosystems don't scale because of capital—they scale because capital enters a system that already knows how to absorb it."
+  },
+  { 
+    title: "How Regional Incubation Can Power National Economic Growth",
+    venue: "GlobalStartupLens · LinkedIn", 
+    type: "Article",
+    date: "Mar 27, 2026",
+    abstract: "Global data shows that how ecosystems are nurtured matters more than raw numbers. Pakistan's startup landscape counts ~170 VC-backed ventures worth $4 billion, yet lacks unicorns primarily due to growth-stage funding gaps. Regional incubation hubs, when aligned with policy and SME development, can transform innovation into lasting national economic impact."
+  },
+  { 
+    title: "The Rise of Micro-Incubators in Second-Tier Cities",
+    venue: "GlobalStartupLens · LinkedIn",
+    type: "Article", 
+    date: "Mar 2, 2026",
+    abstract: "Across Pakistan and globally, micro-incubators in second-tier cities are reshaping how startup ecosystems evolve. This is not about flashy unicorn announcements. It is about decentralization, inclusion, and long-term resilience. Talent exists beyond capitals—what was missing was structured support."
+  },
+  { 
+    title: "Beyond Mentorship: What True Startup Enablement Looks Like",
+    venue: "GlobalStartupLens · LinkedIn",
+    type: "Article",
+    date: "Feb 4, 2026", 
+    abstract: "Mentorship alone rarely changes outcomes. True startup enablement rests on four pillars: Market Enablement, Operational Enablement, Capital Enablement, and Founder Enablement. Ecosystems mature when they shift from teaching startups to enabling them."
+  },
+  { 
+    title: "Designing the Ideal Founder Journey: Lessons from 100+ Startups",
+    venue: "GlobalStartupLens · LinkedIn",
+    type: "Article",
+    date: "Jan 17, 2026",
+    abstract: "Most startup failures are not about ideas, but about poorly designed founder journeys. From aspiration to execution, builder to operator, operator to leader, and local player to global thinker—each stage demands a different version of the founder."
+  },
+  { 
+    title: "From Incubation to Acceleration: The Next Frontier",
+    venue: "GlobalStartupLens · LinkedIn",
+    type: "Article",
+    date: "Jan 5, 2026",
+    abstract: "Globally, the startup support conversation is shifting. The real question today is not how many startups we incubate, but how many we successfully accelerate into scalable, investable, and globally competitive companies. Acceleration is the bridge between ambition and impact."
+  },
+  { 
+    title: "My Vision for the Next Generation of Tech Entrepreneurs",
+    venue: "GlobalStartupLens · LinkedIn",
+    type: "Article",
+    date: "Nov 8, 2025",
+    abstract: "The next generation of tech entrepreneurs must move from imitation to innovation, building solutions rooted in local realities but with global relevance. Technology is most powerful when it empowers others—innovation that doesn't include everyone isn't progress, it's privilege."
+  },
+  { 
+    title: "Why Incubation Should Be Taught in Business Schools",
+    venue: "GlobalStartupLens · LinkedIn",
+    type: "Article",
+    date: "Nov 6, 2025",
+    abstract: "Business schools must move beyond theory and start teaching incubation as a discipline. Incubation isn't just about startups—it's about cultivating the mindset, resilience, and problem-solving capability every modern leader needs."
+  },
+  { 
+    title: "The Startup Ecosystem in KPK: Past, Present & Future",
+    venue: "GlobalStartupLens · LinkedIn",
+    type: "Article",
+    date: "Nov 4, 2025",
+    abstract: "From small-town innovators to university founders, KPK's startup ecosystem is evolving into one of Pakistan's most promising growth frontiers. The province's journey offers valuable lessons on how inclusion, collaboration, and vision can drive real change."
+  },
+  { 
+    title: '"Digital Pakistan" Starts with Local Incubators – Here\'s How',
+    venue: "GlobalStartupLens · LinkedIn",
+    type: "Article",
+    date: "Nov 1, 2025",
+    abstract: "A truly 'Digital Pakistan' begins at the grassroots level. Local incubators are bridging the digital divide, equipping youth with 21st-century skills, and creating a pipeline of founders who are solving local problems with global potential."
+  },
+  { 
+    title: "Earnings Quality & Stock Returns Analysis",
+    venue: "International Conference on Issues in Management and Social Sciences",
+    type: "Conference Presentation",
+    date: "Aug 2020",
+    abstract: "Presented research on earnings quality and its impact on stock return performance among publicly listed firms at an international academic conference."
+  },
+  { 
+    title: "Impact of Training on SME Performance",
+    venue: "International Review of Basic and Applied Sciences",
+    type: "Published Research",
+    date: "Jun 2020",
+    abstract: "Examined the relationship between structured employee training programs and measurable performance outcomes within SME environments."
+  },
 ];
+
 function Research() {
   const [open, setOpen] = useState<number | null>(null);
+  const [showAll, setShowAll] = useState(false);
+  
+  const displayedPubs = showAll ? PUBS : PUBS.slice(0, 6);
+
   return (
     <Section id="research" eyebrow="Research & Publications" title={<>Research that <span className="text-gradient">moves the field</span></>}>
       <div className="grid lg:grid-cols-2 gap-6">
-        {PUBS.map((p, i) => (
+        {displayedPubs.map((p, i) => (
           <Reveal key={p.title} delay={i * 0.12}>
             <motion.div
               whileHover={{ y: -4 }}
               onClick={() => setOpen(open === i ? null : i)}
-              className="neon-border rounded-2xl p-6 cursor-pointer">
+              className="neon-border rounded-2xl p-6 cursor-pointer h-full flex flex-col"
+            >
               <div className="flex items-center gap-2 text-xs mb-3">
                 <BookOpen className="h-4 w-4" style={{ color: "var(--neon-pink)" }} />
                 <span style={{ color: "var(--neon-pink)" }}>{p.type}</span>
                 <span className="text-muted-foreground">· {p.date}</span>
               </div>
-              <h3 className="text-lg font-semibold mb-2">{p.title}</h3>
-              <div className="text-sm" style={{ color: "var(--neon-blue)" }}>{p.venue}</div>
+              <h3 className="text-lg font-semibold mb-2 line-clamp-2">{p.title}</h3>
+              <div className="text-sm mb-3" style={{ color: "var(--neon-blue)" }}>{p.venue}</div>
               <AnimatePresence>
                 {open === i && (
                   <motion.p
                     initial={{ opacity: 0, height: 0 }}
                     animate={{ opacity: 1, height: "auto", marginTop: 16 }}
                     exit={{ opacity: 0, height: 0, marginTop: 0 }}
-                    className="text-sm text-muted-foreground overflow-hidden">
+                    className="text-sm text-muted-foreground overflow-hidden flex-grow"
+                  >
                     {p.abstract}
                   </motion.p>
                 )}
@@ -655,6 +742,26 @@ function Research() {
           </Reveal>
         ))}
       </div>
+      
+      {/* View More Button */}
+      <motion.div 
+        className="flex justify-center mt-12"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+      >
+        <a
+          href="https://www.linkedin.com/in/anwarr-ulhaq/recent-activity/articles/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-3 px-8 py-4 rounded-full neon-border hover:scale-105 transition-all duration-300 group"
+        >
+          <span className="text-sm font-medium">View All Articles on LinkedIn</span>
+          <ArrowUpRight className="h-5 w-5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" style={{ color: "var(--neon-pink)" }} />
+          <span className="text-xs text-muted-foreground">(12+ articles)</span>
+        </a>
+      </motion.div>
     </Section>
   );
 }
@@ -877,7 +984,9 @@ function Portfolio() {
       <Nav />
       <main className="relative">
         <Hero />
+        <TaskScroller />
         <About />
+         <LogoScroller />
         <Impact />
         <Experience />
         <Network_ />
@@ -888,6 +997,7 @@ function Portfolio() {
         <Testimonials />
         <Contact />
         <Footer />
+        
       </main>
     </>
   );
