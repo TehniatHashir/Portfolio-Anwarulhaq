@@ -372,7 +372,7 @@ function Skills() {
                 whileHover={{ scale: 1.1, zIndex: 20 }}
                 className="absolute top-1/2 left-1/2"
                 style={{ transform: `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))` }}>
-                <motion.div style={{ rotate: useTransform(smoothRotate, (v) => -v) }}
+                <motion.div style={{ rotate: counterRotate }}
                   className="glass rounded-full px-4 py-2 text-xs sm:text-sm font-medium whitespace-nowrap cursor-default"
                   >
                   {skill}
