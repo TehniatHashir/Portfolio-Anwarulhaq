@@ -334,6 +334,7 @@ function Skills() {
   const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start end", "end start"] });
   const rotate = useTransform(scrollYProgress, [0, 1], [0, 180]);
   const smoothRotate = useSpring(rotate, { stiffness: 50, damping: 20 });
+  const counterRotate = useTransform(smoothRotate, (v) => -v);
 
   return (
     <Section id="skills" eyebrow="Core Competencies" title={<>Skills in <span className="text-gradient">orbit</span></>}>
