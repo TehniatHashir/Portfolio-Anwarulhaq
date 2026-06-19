@@ -8,13 +8,16 @@
     },
     {
       "src": "src/server.ts",
-      "use": "@vercel/node"
+      "use": "@vercel/edge"
     }
   ],
   "routes": [
     {
-      "src": "/(.*)",
-      "dest": "/src/server.ts"
+      "handle": "filesystem"
+    },
+    {
+      "src": "(.*)",
+      "dest": "src/server.ts"
     }
   ]
 }
